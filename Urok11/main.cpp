@@ -164,7 +164,7 @@ if (name == "EasyEnemy"){
 sprite.setTextureRect(IntRect(0, 0, w, h));
 direction = rand() % (3); //Направление движения врага задаём случайным образом
 //через генератор случайных чисел
-speed = 0.1;//даем скорость.этот объект всегда двигается
+speed = 0.01;//даем скорость.этот объект всегда двигается
 dx = speed;
 }
 }
@@ -269,10 +269,10 @@ case 3: dx = 0; dy = speed; break;// state = down
 if (life){
 x += dx*time;//само движение пули по х
 y += dy*time;//по у
-if (x <= 0) x = 20;// задержка пули в левой стене, чтобы при проседании кадров она случайно не вылетела за предел карты и не было ошибки (сервер может тормозить!)
-if (y <= 0) y = 20;
-if (x >= 800) x = 780;// задержка пули в правой стене, чтобы при проседании кадров она случайно не вылетела за предел карты и не было ошибки (сервер может тормозить!)
-if (y >= 640) y = 620;
+//if (x <= 0) x = 20;// задержка пули в левой стене, чтобы при проседании кадров она случайно не вылетела за предел карты и не было ошибки (сервер может тормозить!)
+//if (y <= 0) y = 20;
+//if (x >= 800) x = 780;// задержка пули в правой стене, чтобы при проседании кадров она случайно не вылетела за предел карты и не было ошибки (сервер может тормозить!)
+//if (y >= 640) y = 620;
 for (int i = y / 32; i < (y + h) / 32; i++)//проходимся по элементам карты
 for (int j = x / 32; j < (x + w) / 32; j++)
 {
@@ -287,7 +287,7 @@ sprite.setPosition(x + w / 2, y + h / 2);//задается позицию пу�
 int main()
 {
 sf::VideoMode desktop = sf::VideoMode::getDesktopMode();
-sf::RenderWindow window(sf::VideoMode(800, 640, desktop.bitsPerPixel), "Lesson 12");
+sf::RenderWindow window(sf::VideoMode(1280, 1000, desktop.bitsPerPixel), "Lesson 12");
 Font font;//шрифт
 font.loadFromFile("BrassMono-Italic.ttf");//передаем нашему шрифту файл шрифта
 Text text("", font, 20);//создаем объект текст
@@ -312,7 +312,7 @@ Player p(heroImage, 100, 100, 96, 96, "Player1");//объект класса и�
 std::list<Entity*> enemies; //список врагов
 std::list<Entity*> Bullets; //список пуль
 std::list<Entity*>::iterator it; //итератор чтобы проходить по элементам списка
-const int ENEMY_COUNT = 3; //максимальное количество врагов в игре
+const int ENEMY_COUNT = 2; //максимальное количество врагов в игре
 int enemiesCount = 0; //текущее количество врагов в игре
 //Заполняем список объектами врагами
 for (int i = 0; i < ENEMY_COUNT; i++)
@@ -335,7 +335,6 @@ clock.restart();
 time = time / 800;
 createObjectForMapTimer += time;//наращиваем таймер
 if (createObjectForMapTimer>3000){
-randomMapGenerate();//генерация камней
 createObjectForMapTimer = 0;//обнуляем таймер
 }
 sf::Event event;
@@ -348,7 +347,7 @@ if (event.type == sf::Event::KeyPressed)
 {
 if (event.key.code == sf::Keyboard::P)
 {
-Bullets.push_back(new Bullet(BulletImage, p.x, p.y, 16, 16, "Bullet", p.state));
+Bullets.push_back(new Bullet(BulletImage, p.x, p.y, 19, 21, "Bullet", p.state));
 }
 }
 }
@@ -377,7 +376,7 @@ for (it = enemies.begin(); it != enemies.end(); it++){//бежим по спис
 if ((p.getRect().intersects((*it)->getRect())) && ((*it)->name == "EasyEnemy"))
 {
 p.health = 0;
-std::cout << "you are lose";
+std::cout << "you are lose(r)";
 }
 }
 }
@@ -396,10 +395,9 @@ s_map.setPosition(j * 32, i * 32);
 window.draw(s_map);
 }
 //объявили переменную здоровья и времени
-std::ostringstream playerHealthString, gameTimeString;
-playerHealthString << p.health; gameTimeString << gameTime;//формируем строку
-text.setString("Health: " + playerHealthString.str() + "\nTime: " +
-gameTimeString.str());//задаем строку тексту
+std::ostringstream playerHealthString, gameTimeString, playerScoreString;
+playerHealthString << p.health; gameTimeString << gameTime; playerScoreString << p.playerScore;//формируем строку
+text.setString("Health: " + playerHealthString.str() + "\nTime: " + gameTimeString.str()+"\nSpravki:" + playerScoreString.str());//задаем строку тексту
 text.setPosition(50, 50);//задаем позицию текста
 window.draw(text);//рисуем этот текст
 window.draw(p.sprite);//рисуем спрайт объекта “p” класса “Player”
