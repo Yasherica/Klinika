@@ -46,10 +46,9 @@ void Player::checkCollisionWithMap(float Dx, float Dy) {
         if (TileMap[i][j] == 's') {
         playerScore++; //если взяли камень
         TileMap[i][j] = ' ';
+          }
         }
-
     }
-}
 
 void Player :: update(float time) //метод "оживления/обновления" объекта класса.
 {

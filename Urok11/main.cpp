@@ -143,9 +143,16 @@ for (int i = 0; i < ENEMY_COUNT; i++)
             {
             p.health = 0;
             std::cout << "you are lose";
+            break;
             }
         }
     }
+    if (p.playerScore == 1){
+             p.health = 0;
+            std::cout << "you are win";
+            break;
+          }
+
 
     window.clear();
 
