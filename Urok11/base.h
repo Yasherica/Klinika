@@ -9,7 +9,8 @@
 using namespace std;
 using namespace sf;
 
-const int HEIGHT_MAP = 40;  // размер карты высота
+
+const int HEIGHT_MAP = 30;  // размер карты высота
 const int WIDTH_MAP = 50;   // размер карты ширина
 
 
