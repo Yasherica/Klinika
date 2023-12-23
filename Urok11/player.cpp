@@ -1,4 +1,5 @@
 #include "player.h" //подключили код с картой
+#include "map.h"
 
 Player::Player(Image &image, float X, float Y, int W, int H, string Name):Entity(image, X,
 Y, W, H, Name){
@@ -46,14 +47,7 @@ void Player::checkCollisionWithMap(float Dx, float Dy) {
         playerScore++; //если взяли камень
         TileMap[i][j] = ' ';
         }
-        if (TileMap[i][j] == 'f') {
-        health -= 40;//если взяли ядовитый цветок
-        TileMap[i][j] = ' ';//убрали цветок
-        }
-        if (TileMap[i][j] == 'h') {
-        health += 20;//если взяли сердечко
-        TileMap[i][j] = ' ';//убрали сердечко
-        }
+
     }
 }
 

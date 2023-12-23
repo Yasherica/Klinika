@@ -2,10 +2,11 @@
 #include "bullet.h"
 #include "enemy.h"
 
+
 int main()
 {
 sf::VideoMode desktop = sf::VideoMode::getDesktopMode();
-sf::RenderWindow window(sf::VideoMode(800, 640, desktop.bitsPerPixel), "Lesson 12");
+sf::RenderWindow window(sf::VideoMode(1280, 1000, desktop.bitsPerPixel), "Lesson 12");
 
 Font font;//шрифт
 font.loadFromFile("BrassMono-Italic.ttf");//передаем нашему шрифту файл шрифта
@@ -130,20 +131,17 @@ while (window.isOpen())
     for (int i = 0; i < HEIGHT_MAP; i++)
     for (int j = 0; j < WIDTH_MAP; j++)
     {
-    if (p.TileMap[i][j] == ' ') s_map.setTextureRect(IntRect(0, 0, 32, 32));
-    if (p.TileMap[i][j] == 's') s_map.setTextureRect(IntRect(32, 0, 32, 32));
-    if ((p.TileMap[i][j] == '0')) s_map.setTextureRect(IntRect(64, 0, 32, 32));
-    if ((p.TileMap[i][j] == 'f')) s_map.setTextureRect(IntRect(96, 0, 32, 32));//цветок
-    if ((p.TileMap[i][j] == 'h')) s_map.setTextureRect(IntRect(128, 0, 32, 32));//сердце
+    if (p.TileMap[i][j] == ' ') s_map.setTextureRect(IntRect(0, 0, 32, 32));//пол
+    if (p.TileMap[i][j] == 's') s_map.setTextureRect(IntRect(32, 0, 32, 32));//справка
+    if ((p.TileMap[i][j] == '0')) s_map.setTextureRect(IntRect(64, 0, 32, 32));//стена
     s_map.setPosition(j * 32, i * 32);
     window.draw(s_map);
     }
 
     //объявили переменную здоровья и времени
-    std::ostringstream playerHealthString, gameTimeString;
-    playerHealthString << p.health; gameTimeString << gameTime;//формируем строку
-    text.setString("Health: " + playerHealthString.str() + "\nTime: " +
-    gameTimeString.str());//задаем строку тексту
+    std::ostringstream playerHealthString, gameTimeString, playerScoreString;
+    playerHealthString << p.health; gameTimeString << gameTime; playerScoreString << p.playerScore;//формируем строку
+    text.setString("Health: " + playerHealthString.str() + "\nTime: " + gameTimeString.str()+"\nSpravki:" + playerScoreString.str());//задаем строку тексту
     text.setPosition(50, 50);//задаем позицию текста
     window.draw(text);//рисуем этот текст
 
