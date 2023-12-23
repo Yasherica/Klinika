@@ -5,7 +5,7 @@ CONFIG -= qt
 
 QMAKE_CXXFLAGS += -std=c++11
 
-LIBS += -L"D:\SFML\QTSFML\SFML-2.3.2\lib"
+LIBS += -L"C:\SFML-2.3.2\lib"
 
 CONFIG(release, debug|release):
 LIBS += -lsfml-audio -lsfml-graphics -lsfml-main -lsfml-network -lsfml-window -lsfml-system
