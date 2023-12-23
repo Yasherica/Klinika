@@ -1,42 +1,23 @@
-#include <SFML/Graphics.hpp>
+#ifndef MAP
+#define MAP
 
-const int HEIGHT_MAP = 40;  // размер карты высота
-const int WIDTH_MAP = 50;   // размер карты ширина
+#include "base.h"
 
-sf::Texture mapTexture;  // текстура карты
-sf::Sprite s_map;        // спрайт карты
 
-std::string TileMap[HEIGHT_MAP] = {
-    "0000000000000000000000000000000000000000",
-    "0                                      0",
-    "0      0000000           0000000       0",
-    "0      0  s  0           0  s  0       0",
-    "0                                      0",
-    "0                                      0",
-    "0                                      0",
-    "0                                      0",
-    "0                                      0",
-    "0                                      0",
-    "0                                      0",
-    "0                                      0",
-    "0                                      0",
-    "0                                      0",
-    "0                                      0",
-    "0                                      0",
-    "0                                      0",
-    "0                                      0",
-    "0                                      0",
-    "0                                      0",
-    "0                                      0",
-    "0                                      0",
-    "0                                      0",
-    "0                                      0",
-    "0                                      0",
-    "0                                      0",
-    "0                                      0",
-    "0      0  s  0           0  s  0       0",
-    "0      0000000           0000000       0",
-    "0                                      0",
-    "0000000000000000000000000000000000000000",
 
-};
+/*void randomMapGenerate(){//рандомно расставляем камни
+int randomElementX = 0;//переменная для хранения случайного элемента по горизонтали
+int randomElementY = 0;//переменная для хранения случайного элемента по вертикали
+int countStone = 5;//количество камней
+while (countStone>0){
+randomElementX = 1 + rand() % (WIDTH_MAP - 1);//псевдослучайное значение по “x” от 1 до
+//ширина карты-1. Ограничение введено чтобы не получать числа бордюра карты
+randomElementY = 1 + rand() % (HEIGHT_MAP - 1);//по “y”
+if (TileMap[randomElementY][randomElementX] == ' ') {//если встретили символ пробел,
+TileMap[randomElementY][randomElementX] = 's'; //то ставим туда камень.
+countStone--;
+}
+}
+}*/
+
+#endif // MAP
