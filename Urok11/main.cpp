@@ -6,7 +6,7 @@
 int main()
 {
 sf::VideoMode desktop = sf::VideoMode::getDesktopMode();
-sf::RenderWindow window(sf::VideoMode(1280, 1000, desktop.bitsPerPixel), "Lesson 12");
+sf::RenderWindow window(sf::VideoMode(1280, 800, desktop.bitsPerPixel), "Lesson 12");
 
 Font font;//шрифт
 font.loadFromFile("BrassMono-Italic.ttf");//передаем нашему шрифту файл шрифта
@@ -57,22 +57,44 @@ for (int i = 0; i < ENEMY_COUNT; i++)
     enemiesCount +=1; //увеличили счётчик врагов
 }
 
-int createObjectForMapTimer = 0;//Переменная под время для генерирования камней
-while (window.isOpen())
-{
-    float time = clock.getElapsedTime().asMicroseconds();
-    if (p.life) gameTime = gameTimeClock.getElapsedTime().asSeconds();//игровое время в
-    //секундах идёт вперед, пока жив игрок. Перезагружать как time его не надо.
-    //оно не обновляет логику игры
+    int createObjectForMapTimer = 0;
 
-    clock.restart();
-    time = time / 800;
-    createObjectForMapTimer += time;//наращиваем таймер
+    int count=1;//Переменная под время для генерирования камней
+    while (window.isOpen())
+    {
+        float time = clock.getElapsedTime().asMicroseconds();
+        if (p.life) gameTime = gameTimeClock.getElapsedTime().asSeconds();//игровое время в
+        //секундах идёт вперед, пока жив игрок. Перезагружать как time его не надо.
+        //оно не обновляет логику игры
+        clock.restart();
+        time = time / 800;
+        createObjectForMapTimer += time;//наращиваем таймер
+        if (createObjectForMapTimer>8000){
+        {//Расставляем справки
+                if (count==1){
+                p.TileMap[3][10] = 's';
+                count++;
+                }// ожидание 15 секунд
 
-    if (createObjectForMapTimer>3000){
-    //randomMapGenerate();//генерация камней
-    createObjectForMapTimer = 0;//обнуляем таймер
+               else if (count==2){
+                 p.TileMap[21][28] = 's';
+                 count++;   // ожидание 15 секунд
+                }
+                 else if (count==3){
+                 p.TileMap[21][10] = 's';
+                count++;   // ожидание 15 секунд
+                }
+
+                else if (count==4){
+                 p.TileMap[3][28] = 's';
+                 count=1;   // ожидание 15 секунд
+                }
+            };//генерация камней
+        createObjectForMapTimer = 0;//обнуляем таймер
     }
+
+
+
 
     sf::Event event;
     while (window.pollEvent(event))
@@ -132,11 +154,13 @@ while (window.isOpen())
     for (int j = 0; j < WIDTH_MAP; j++)
     {
     if (p.TileMap[i][j] == ' ') s_map.setTextureRect(IntRect(0, 0, 32, 32));//пол
+     if (p.TileMap[i][j] == 'k') s_map.setTextureRect(IntRect(0, 0, 32, 32));//пол
     if (p.TileMap[i][j] == 's') s_map.setTextureRect(IntRect(32, 0, 32, 32));//справка
     if ((p.TileMap[i][j] == '0')) s_map.setTextureRect(IntRect(64, 0, 32, 32));//стена
     s_map.setPosition(j * 32, i * 32);
     window.draw(s_map);
     }
+
 
     //объявили переменную здоровья и времени
     std::ostringstream playerHealthString, gameTimeString, playerScoreString;

@@ -14,6 +14,7 @@ Entity :: Entity(Image &image, float X, float Y, int W, int H, string Name){
     sprite.setTexture(texture); //заливаем спрайт текстурой
 }
 
+
 FloatRect Entity :: getRect(){//метод получения прямоугольника. его коорд, размеры (шир,высот).
     FloatRect FR(x, y, w, h); // переменная FR типа FloatRect
     return FR;
