@@ -1,4 +1,3 @@
-#include "map.h" //подключили код с картой
 #include "Enemy.h"
 
 using namespace sf;
@@ -86,9 +85,8 @@ void Enemy::update(float time)
 
         y += dy*time; //движение по “Y”
         checkCollisionWithMap(0, dy);//обрабатываем столкновение по Y
-       // speed = 0; //обнуляем скорость, чтобы персонаж остановился.
         sprite.setPosition(x, y); //спрайт в позиции (x, y).
-        //if (health <= 0){ life = false; }//если жизней меньше 0, либо равно 0, то умираем
+        if (health <= 0){ speed = 0; }//если жизней меньше 0, либо равно 0, то умираем
         }
     }
 }

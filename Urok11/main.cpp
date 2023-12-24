@@ -147,7 +147,7 @@ for (int i = 0; i < ENEMY_COUNT; i++)
             }
         }
     }
-    if (p.playerScore == 1){
+    if (p.playerScore == 4){
              p.health = 0;
             std::cout << "you are win";
             break;

@@ -1,5 +1,4 @@
 #include "player.h" //подключили код с картой
-#include "map.h"
 
 Player::Player(Image &image, float X, float Y, int W, int H, string Name):Entity(image, X,
 Y, W, H, Name){
