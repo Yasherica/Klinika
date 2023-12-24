@@ -6,7 +6,7 @@
 int main()
 {
 sf::VideoMode desktop = sf::VideoMode::getDesktopMode();
-sf::RenderWindow window(sf::VideoMode(1280, 800, desktop.bitsPerPixel), "Lesson 12");
+sf::RenderWindow window(sf::VideoMode(1280, 800, desktop.bitsPerPixel), "Klinika 2");
 
 Font font;//шрифт
 font.loadFromFile("BrassMono-Italic.ttf");//передаем нашему шрифту файл шрифта
@@ -44,13 +44,13 @@ std::list<Entity*> Bullets; //список пуль
 std::list<Entity*>::iterator it; //итератор чтобы проходить по элементам списка
 std::list<Entity*>::iterator eit;
 
-const int ENEMY_COUNT = 3; //максимальное количество врагов в игре
+const int ENEMY_COUNT = 4; //максимальное количество врагов в игре
 int enemiesCount = 0; //текущее количество врагов в игре
 
 //Заполняем список объектами врагами
 for (int i = 0; i < ENEMY_COUNT; i++)
 {
-    float xr = 150 + rand() % 500; // случайная координата врага на поле игры по оси “x”
+    float xr = 100 + rand() % 500; // случайная координата врага на поле игры по оси “x”
     float yr = 150 + rand() % 350; // случайная координата врага на поле игры по оси “y”
     //создаем врагов и помещаем в список
 

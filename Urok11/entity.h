@@ -58,10 +58,6 @@ std::string TileMap[HEIGHT_MAP] = {
     "0000000000000000000000000000000000000000",
 
 };
-
-
-
-
 };
 #endif // ENTITY
 
