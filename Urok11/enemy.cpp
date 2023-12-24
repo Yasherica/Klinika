@@ -44,6 +44,8 @@ void Enemy :: checkCollisionWithMap(float Dx, float Dy)//ф-ция провер�
     }
 }
 
+
+
 void Enemy::update(float time)
 {
     if (name == "EasyEnemy") //для персонажа с таким именем логика будет такой

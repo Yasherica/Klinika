@@ -143,7 +143,6 @@ for (int i = 0; i < ENEMY_COUNT; i++)
             {
             p.health = 0;
             std::cout << "you are lose";
-            break;
             }
         }
     }
