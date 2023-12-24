@@ -2,10 +2,11 @@
 #include "bullet.h"
 #include "enemy.h"
 
+
 int main()
 {
 sf::VideoMode desktop = sf::VideoMode::getDesktopMode();
-sf::RenderWindow window(sf::VideoMode(800, 640, desktop.bitsPerPixel), "Lesson 12");
+sf::RenderWindow window(sf::VideoMode(1280, 800, desktop.bitsPerPixel), "Lesson 12");
 
 Font font;//шрифт
 font.loadFromFile("BrassMono-Italic.ttf");//передаем нашему шрифту файл шрифта
@@ -41,6 +42,7 @@ Player p(heroImage, 100, 100, 96, 96, "Player1");//объект класса и�
 std::list<Entity*> enemies; //список врагов
 std::list<Entity*> Bullets; //список пуль
 std::list<Entity*>::iterator it; //итератор чтобы проходить по элементам списка
+std::list<Entity*>::iterator eit;
 
 const int ENEMY_COUNT = 3; //максимальное количество врагов в игре
 int enemiesCount = 0; //текущее количество врагов в игре
@@ -56,22 +58,44 @@ for (int i = 0; i < ENEMY_COUNT; i++)
     enemiesCount +=1; //увеличили счётчик врагов
 }
 
-int createObjectForMapTimer = 0;//Переменная под время для генерирования камней
-while (window.isOpen())
-{
-    float time = clock.getElapsedTime().asMicroseconds();
-    if (p.life) gameTime = gameTimeClock.getElapsedTime().asSeconds();//игровое время в
-    //секундах идёт вперед, пока жив игрок. Перезагружать как time его не надо.
-    //оно не обновляет логику игры
+    int createObjectForMapTimer = 0;
 
-    clock.restart();
-    time = time / 800;
-    createObjectForMapTimer += time;//наращиваем таймер
+    int count=1;//Переменная под время для генерирования камней
+    while (window.isOpen())
+    {
+        float time = clock.getElapsedTime().asMicroseconds();
+        if (p.life) gameTime = gameTimeClock.getElapsedTime().asSeconds();//игровое время в
+        //секундах идёт вперед, пока жив игрок. Перезагружать как time его не надо.
+        //оно не обновляет логику игры
+        clock.restart();
+        time = time / 800;
+        createObjectForMapTimer += time;//наращиваем таймер
+        if (createObjectForMapTimer>8000){
+        {//Расставляем справки
+                if (count==1){
+                p.TileMap[3][10] = 's';
+                count++;
+                }// ожидание 15 секунд
 
-    if (createObjectForMapTimer>3000){
-    //randomMapGenerate();//генерация камней
-    createObjectForMapTimer = 0;//обнуляем таймер
+               else if (count==2){
+                 p.TileMap[21][28] = 's';
+                 count++;   // ожидание 15 секунд
+                }
+                 else if (count==3){
+                 p.TileMap[21][10] = 's';
+                count++;   // ожидание 15 секунд
+                }
+
+                else if (count==4){
+                 p.TileMap[3][28] = 's';
+                 count=1;   // ожидание 15 секунд
+                }
+            };//генерация камней
+        createObjectForMapTimer = 0;//обнуляем таймер
     }
+
+
+
 
     sf::Event event;
     while (window.pollEvent(event))
@@ -123,6 +147,31 @@ while (window.isOpen())
             }
         }
     }
+    if (p.playerScore == 4){
+             p.health = 0;
+            std::cout << "you are win";
+            break;
+          }
+    //пересечение пули с врагом
+        for (eit = enemies.begin(); eit != enemies.end(); eit++){//бежим по списку врагов
+            for (it = Bullets.begin(); it != Bullets.end(); it++){//по списку пуль
+                if (((*it)->getRect().intersects((*eit)->getRect())) &&
+                    ((*eit)->name == "EasyEnemy") && ((*it)->name == "Bullet"))
+                {
+                    cout << "Exellent hit!\n";
+
+                    //при попадании пули у врага отнимается здоровье
+                    (*eit)-> health = 0;
+                    if ((*eit)-> health <= 0) {
+                        //(*eit)-> life = false;
+                        //enemiesCount -= 1; //уменьшаем количество врагов в игре
+                        (*eit)-> speed = 0;
+                        cout << "Enemy destroyed!\n";
+                    }
+                    (*it)-> life = false;
+                }
+            }
+        }
 
     window.clear();
 
@@ -130,20 +179,19 @@ while (window.isOpen())
     for (int i = 0; i < HEIGHT_MAP; i++)
     for (int j = 0; j < WIDTH_MAP; j++)
     {
-    if (p.TileMap[i][j] == ' ') s_map.setTextureRect(IntRect(0, 0, 32, 32));
-    if (p.TileMap[i][j] == 's') s_map.setTextureRect(IntRect(32, 0, 32, 32));
-    if ((p.TileMap[i][j] == '0')) s_map.setTextureRect(IntRect(64, 0, 32, 32));
-    if ((p.TileMap[i][j] == 'f')) s_map.setTextureRect(IntRect(96, 0, 32, 32));//цветок
-    if ((p.TileMap[i][j] == 'h')) s_map.setTextureRect(IntRect(128, 0, 32, 32));//сердце
+    if (p.TileMap[i][j] == ' ') s_map.setTextureRect(IntRect(0, 0, 32, 32));//пол
+     if (p.TileMap[i][j] == 'k') s_map.setTextureRect(IntRect(0, 0, 32, 32));//пол
+    if (p.TileMap[i][j] == 's') s_map.setTextureRect(IntRect(32, 0, 32, 32));//справка
+    if ((p.TileMap[i][j] == '0')) s_map.setTextureRect(IntRect(64, 0, 32, 32));//стена
     s_map.setPosition(j * 32, i * 32);
     window.draw(s_map);
     }
 
+
     //объявили переменную здоровья и времени
-    std::ostringstream playerHealthString, gameTimeString;
-    playerHealthString << p.health; gameTimeString << gameTime;//формируем строку
-    text.setString("Health: " + playerHealthString.str() + "\nTime: " +
-    gameTimeString.str());//задаем строку тексту
+    std::ostringstream playerHealthString, gameTimeString, playerScoreString;
+    playerHealthString << p.health; gameTimeString << gameTime; playerScoreString << p.playerScore;//формируем строку
+    text.setString("Health: " + playerHealthString.str() + "\nTime: " + gameTimeString.str()+"\nSpravki:" + playerScoreString.str());//задаем строку тексту
     text.setPosition(50, 50);//задаем позицию текста
     window.draw(text);//рисуем этот текст
 

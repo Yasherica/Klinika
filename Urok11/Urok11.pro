@@ -24,7 +24,6 @@ include(deployment.pri)
 qtcAddDeployment()
 
 HEADERS += \
-    map.h \
     base.h \
     enemy.h \
     entity.h \

@@ -1,4 +1,3 @@
-#include "map.h" //подключили код с картой
 #include "Enemy.h"
 
 using namespace sf;
@@ -44,6 +43,8 @@ void Enemy :: checkCollisionWithMap(float Dx, float Dy)//ф-ция провер�
     }
 }
 
+
+
 void Enemy::update(float time)
 {
     if (name == "EasyEnemy") //для персонажа с таким именем логика будет такой
@@ -77,17 +78,17 @@ void Enemy::update(float time)
             CurrentFrame += 0.005*time;
             if (CurrentFrame > 3) CurrentFrame -= 3;
             sprite.setTextureRect(IntRect(96 * int(CurrentFrame), 0, 96, 96));
-            break;
-            }
-            }
+            break;}}
+
         x += dx*time; //движение по “X”
         checkCollisionWithMap(dx, 0);//обрабатываем столкновение по Х
 
         y += dy*time; //движение по “Y”
         checkCollisionWithMap(0, dy);//обрабатываем столкновение по Y
         sprite.setPosition(x, y); //спрайт в позиции (x, y).
-        if (health <= 0){ life = false; }//если жизней меньше 0, либо равно 0, то умираем
+        if (health <= 0){ speed = 0; }//если жизней меньше 0, либо равно 0, то умираем
         }
     }
 }
+
 //класс Enemy закрыт

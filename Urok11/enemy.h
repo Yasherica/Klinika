@@ -2,7 +2,7 @@
 #define ENEMY
 #include "entity.h"
 
-////////////////////////////КЛАСС ВРАГА////////////////////////
+//КЛАСС ВРАГА
 class Enemy :public Entity{
 public:
 int direction;//направление движения врага

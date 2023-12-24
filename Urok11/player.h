@@ -2,10 +2,11 @@
 #define PLAYER
 #include "entity.h"
 
-////////////////////////////КЛАСС ИГРОКА////////////////////////
+//КЛАСС ИГРОКА
 class Player :public Entity {
 public:
 int playerScore;//эта переменная может быть только у игрока
+
 
 Player(Image &image, float X, float Y, int W, int H, string Name);
 
