@@ -42,6 +42,7 @@ Player p(heroImage, 100, 100, 96, 96, "Player1");//объект класса и�
 std::list<Entity*> enemies; //список врагов
 std::list<Entity*> Bullets; //список пуль
 std::list<Entity*>::iterator it; //итератор чтобы проходить по элементам списка
+std::list<Entity*>::iterator eit;
 
 const int ENEMY_COUNT = 3; //максимальное количество врагов в игре
 int enemiesCount = 0; //текущее количество врагов в игре
@@ -151,7 +152,26 @@ for (int i = 0; i < ENEMY_COUNT; i++)
             std::cout << "you are win";
             break;
           }
+    //пересечение пули с врагом
+        for (eit = enemies.begin(); eit != enemies.end(); eit++){//бежим по списку врагов
+            for (it = Bullets.begin(); it != Bullets.end(); it++){//по списку пуль
+                if (((*it)->getRect().intersects((*eit)->getRect())) &&
+                    ((*eit)->name == "EasyEnemy") && ((*it)->name == "Bullet"))
+                {
+                    cout << "Exellent hit!\n";
 
+                    //при попадании пули у врага отнимается здоровье
+                    (*eit)-> health = 0;
+                    if ((*eit)-> health <= 0) {
+                        //(*eit)-> life = false;
+                        //enemiesCount -= 1; //уменьшаем количество врагов в игре
+                        (*eit)-> speed = 0;
+                        cout << "Enemy destroyed!\n";
+                    }
+                    (*it)-> life = false;
+                }
+            }
+        }
 
     window.clear();
 

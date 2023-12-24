@@ -79,17 +79,18 @@ void Enemy::update(float time)
             CurrentFrame += 0.005*time;
             if (CurrentFrame > 3) CurrentFrame -= 3;
             sprite.setTextureRect(IntRect(96 * int(CurrentFrame), 0, 96, 96));
-            break;
-            }
-            }
+            break;}}
+
         x += dx*time; //движение по “X”
         checkCollisionWithMap(dx, 0);//обрабатываем столкновение по Х
 
         y += dy*time; //движение по “Y”
         checkCollisionWithMap(0, dy);//обрабатываем столкновение по Y
+       // speed = 0; //обнуляем скорость, чтобы персонаж остановился.
         sprite.setPosition(x, y); //спрайт в позиции (x, y).
-        if (health <= 0){ life = false; }//если жизней меньше 0, либо равно 0, то умираем
+        //if (health <= 0){ life = false; }//если жизней меньше 0, либо равно 0, то умираем
         }
     }
 }
+
 //класс Enemy закрыт
