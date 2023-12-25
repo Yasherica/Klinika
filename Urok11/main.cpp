@@ -143,13 +143,18 @@ for (int i = 0; i < ENEMY_COUNT; i++)
             if ((p.getRect().intersects((*it)->getRect())) && ((*it)->name == "EasyEnemy"))
             {
             p.health = 0;
-            std::cout << "you are lose";
             }
         }
     }
+
+    if(p.health == 0) {
+      std::cout << "you are lose(r)\n";
+      break;
+    }
+
     if (p.playerScore == 5){
              p.health = 0;
-            std::cout << "you are win";
+            std::cout << "you won!!!\n";
             break;
           }
     //пересечение пули с врагом
@@ -175,7 +180,9 @@ for (int i = 0; i < ENEMY_COUNT; i++)
         }
 
 for (eit = enemies.begin(); eit != enemies.end(); eit++){
-    if ((*eit)-> life == false) { eit = enemies.erase(eit); }
+    if ((*eit)-> life == false) {
+        eit = enemies.erase(eit);
+    }
 }
 
 
