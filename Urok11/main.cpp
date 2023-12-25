@@ -147,7 +147,7 @@ for (int i = 0; i < ENEMY_COUNT; i++)
             }
         }
     }
-    if (p.playerScore == 4){
+    if (p.playerScore == 5){
              p.health = 0;
             std::cout << "you are win";
             break;
@@ -158,20 +158,26 @@ for (int i = 0; i < ENEMY_COUNT; i++)
                 if (((*it)->getRect().intersects((*eit)->getRect())) &&
                     ((*eit)->name == "EasyEnemy") && ((*it)->name == "Bullet"))
                 {
-                    cout << "Exellent hit!\n";
+                    cout << "Excellent hit!\n";
 
                     //при попадании пули у врага отнимается здоровье
                     (*eit)-> health = 0;
                     if ((*eit)-> health <= 0) {
                         //(*eit)-> life = false;
                         //enemiesCount -= 1; //уменьшаем количество врагов в игре
-                        (*eit)-> speed = 0;
+                        (*eit)-> life = false;
                         cout << "Enemy destroyed!\n";
                     }
                     (*it)-> life = false;
+
                 }
             }
         }
+
+for (eit = enemies.begin(); eit != enemies.end(); eit++){
+    if ((*eit)-> life == false) { eit = enemies.erase(eit); }
+}
+
 
     window.clear();
 
